@@ -1157,6 +1157,7 @@ pre.oppia-pre-wrapped-text {
   min-height: 500px;
   padding-bottom: 25px;
   position: relative;
+  text-align: center;
 }
 .oppia-collection-player-tiles-container .oppia-page-heading {
   color: #fff;
@@ -2161,7 +2162,7 @@ div#ng-curtain {
 }
 
 .oppia-page-heading {
-  margin-bottom: 5px;
+  margin-bottom: 24px;
 }
 
 .oppia-page-heading-subtext {

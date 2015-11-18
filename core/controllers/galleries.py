@@ -79,6 +79,10 @@ class GalleryPage(base.BaseHandler):
 
     def get(self):
         """Handles GET requests."""
+
+        self.redirect('/collection/1')
+        return
+
         self.values.update({
             'nav_mode': feconf.NAV_MODE_GALLERY,
             'allow_yaml_file_upload': ALLOW_YAML_FILE_UPLOAD.value,
@@ -125,7 +129,10 @@ class GalleryHandler(base.BaseHandler):
             'ratings': exp_summary.ratings,
             'community_owned': exp_summary.community_owned,
             # TODO(sll): Replace these with per-category thumbnails.
-            'thumbnail_icon_url': '/images/gallery/default_thumbnail_icon.svg',
+            'thumbnail_icon_url': (
+                '/images/gallery/form_thumbnail_icon.svg'
+                if 'uestionnaire' in exp_summary.title
+                else '/images/gallery/computer_thumbnail_icon.svg'),
             'thumbnail_bg_color': utils.get_hex_color_for_category(
                 exp_summary.category),
         } for exp_summary in exp_summaries_list]
@@ -264,7 +271,9 @@ class ExplorationSummariesHandler(base.BaseHandler):
                 'thumbnail_image_url': exp_summary.thumbnail_image_url,
                 # TODO(sll): Replace these with per-category thumbnails.
                 'thumbnail_icon_url': (
-                    '/images/gallery/default_thumbnail_icon.svg'),
+                    '/images/gallery/form_thumbnail_icon.svg'
+                    if 'uestionnaire' in exp_summary.title
+                    else '/images/gallery/computer_thumbnail_icon.svg'),
                 'thumbnail_bg_color': utils.get_hex_color_for_category(
                     exp_summary.category),
             }) for exp_summary in exp_summaries]

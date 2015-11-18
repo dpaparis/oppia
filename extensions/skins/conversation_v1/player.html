@@ -155,7 +155,15 @@
             </md-button>
           </div>
 
-          <div ng-if="!activeCard.interactionIsInline">
+          <!--
+            The loadSupplement and the forced height of 550px above are here to
+            ensure that the supplemental card loads fully before the Pencil Code
+            interaction starts loading. Otherwise, the transition is very janky.
+
+            TODO(sll): This is a custom hack for Pencil Code. If it becomes a
+            more general thing, we need to find another way to do it.
+          -->
+          <div ng-if="!activeCard.interactionIsInline && loadSupplement">
             <div class="protractor-test-conversation-input"
                  angular-html-bind="transcript[currentProgressDotIndex].interactionHtml">
             </div>
@@ -169,21 +177,6 @@
                       class="conversation-skin-bottom-gadget-panel"
                       current-state-name="activeCard.stateName">
   </oppia-gadget-panel>
-
-  <div ng-if="isOnFinalCard() && isLoggedIn && !isInPreviewMode && !isIframed && currentProgressDotIndex === transcript.length - 1"
-       class="conversation-skin-final-ratings">
-
-    <div style="color: #eee; margin-bottom: 20px;">
-      Learned something new? How would you rate this exploration?
-    </div>
-    <div popover-placement="bottom" popover-template="'popover/feedback'" popover-trigger="click">
-      <rating-from-value rating-value="userRating"
-                         is-editable="true"
-                         on-edit="submitUserRating"
-                         style="letter-spacing: 10px; color: #fff;">
-      </rating-from-value>
-    </div>
-  </div>
 
   <div class="conversation-skin-card-switcher" ng-if="panels.length >= 2">
     <div class="conversation-skin-card-switcher-thumbnails-container">

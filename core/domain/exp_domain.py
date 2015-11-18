@@ -2492,8 +2492,11 @@ class Exploration(object):
 
     def get_interaction_ids(self):
         """Get all interaction ids used in this exploration."""
-        return list(set([
-            state.interaction.id for state in self.states.itervalues()]))
+        all_interactions = [
+            state.interaction.id for state in self.states.itervalues()]
+        # EXPERIMENTAL. Needed for first card.
+        all_interactions.append('TextInput')
+        return list(set(all_interactions))
 
 
 class ExplorationSummary(object):
