@@ -484,8 +484,12 @@ oppia.directive('conversationSkin', [function() {
               $scope.explorationCompleted = oppiaPlayerService.isStateTerminal(
                 stateName);
 
-              _answerIsBeingProcessed = false;
-              $scope.waitingForOppiaFeedback = false;
+              // Without this guard, submissions happen twice for the initial
+              // card when the initial state of the exploration is changed.
+              $timeout(function() {
+                _answerIsBeingProcessed = false;
+                $scope.waitingForOppiaFeedback = false;
+              });
             });
           }
           return;
